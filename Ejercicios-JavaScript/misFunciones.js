@@ -196,6 +196,11 @@ function cargarResultado()
     document.getElementById("dist").value = cantidad + ' ' + unidad;
 }
 
+/**
+ * Al cargar la pagina, dibuja un cuadrado y un circulo
+ * @method dibujarCirculoCuadrado
+ */
+
 function dibujarCirculoCuadrado()
 {
     let canvas = document.getElementById("myCanvas");
@@ -214,24 +219,34 @@ function dibujarCirculoCuadrado()
     context.fill();
 }
 
-var bandera;
-function dibujar() {
-    let canvas = document.getElementById("canvasPaint");
-    let context = canvas.getContext("2d");
+/**
+ * Al hacer click, dibuja sobre el canvas
+ * @method cargarListener
+ */
 
-    let posX = event.clientX;
-    let posY = event.clientY;
+function cargarListener() {
 
-    canvas.onmousedown = function (){bandera = true};
-    canvas.onmouseup = function (){bandera = false};
+    document.getElementById("canvasPaint").addEventListener("mousemove" , function (event){let canvas = document.getElementById("canvasPaint");
+        let context = canvas.getContext("2d");
 
-    console.log(posX , posY);
+        let posX = event.clientX;
+        let posY = event.clientY;
 
-    if (bandera)
-    {
-        context.fillRect(posX , posY , 5 , 5);
-    }
+        canvas.onmousedown = function (){bandera = true};
+        canvas.onmouseup = function (){bandera = false};
+
+        console.log(posX , posY);
+
+        if (bandera)
+        {
+            context.fillRect(posX-10 , posY-10 , 5 , 5);
+        }})
 }
+
+/**
+ * Al hacer click sobre el boton, limpia el canvas
+ * @method dibujarCirculoCuadrado
+ */
 
 function limpiarCanvas()
 {
@@ -240,4 +255,48 @@ function limpiarCanvas()
 
     canvas.width = canvas.width;
 
+}
+
+function dibujarCuadriculado() {
+    let canvas = document.getElementById("myCanvas");
+    let context = canvas.getContext("2d");
+
+    for (let i = 20 ; i < canvas.height ; i+=20)
+    {
+        context.beginPath();
+        context.moveTo(0 , i);
+        context.lineTo (canvas.width , i);
+        context.lineWidth = 0.5;
+        context.stroke();
+        context.closePath();
+    }
+
+    for (let i = 20 ; i < canvas.width ; i+=20)
+    {
+        context.beginPath();
+        context.moveTo(i , 0);
+        context.lineTo (i , canvas.height);
+        context.lineWidth = 0.5;
+        context.strokeStyle = "#ff0000";
+        context.stroke();
+        context.closePath();
+    }
+
+    //Eje X
+    context.beginPath();
+    context.moveTo(0 , canvas.height/2);
+    context.lineTo(canvas.width , canvas.height/2);
+    context.lineWidth = 1;
+    context.strokeStyle = "#000000";
+    context.stroke();
+    context.closePath();
+
+    //Eje Y
+    context.beginPath();
+    context.moveTo(canvas.width/2 , 0);
+    context.lineTo(canvas.width/2 , canvas.height);
+    context.lineWidth = 1;
+    context.strokeStyle = "#000000";
+    context.stroke();
+    context.closePath();
 }
