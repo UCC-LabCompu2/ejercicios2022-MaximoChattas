@@ -310,3 +310,27 @@ function dibujarAuto(posX , posY) {
     }
 
 }
+
+var x = 0;
+var dx = 95;
+function animarAuto() {
+    let canvas = document.getElementById("myCanvas");
+    let context = canvas.getContext("2d");
+
+    let img;
+    img = new Image();
+    img.src = "images/auto.png";
+
+    canvas.width = canvas.width;
+
+    img.onload = function () {
+        context.drawImage(img , x , canvas.height/2);
+    }
+
+    x += dx;
+
+    if(x > canvas.width)
+    {
+        x = 0;
+    }
+}
