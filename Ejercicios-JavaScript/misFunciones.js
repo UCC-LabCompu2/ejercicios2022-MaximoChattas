@@ -195,3 +195,49 @@ function cargarResultado()
 
     document.getElementById("dist").value = cantidad + ' ' + unidad;
 }
+
+function dibujarCirculoCuadrado()
+{
+    let canvas = document.getElementById("myCanvas");
+    let context = canvas.getContext("2d");
+
+    let canvasHeight = canvas.height;
+    let canvasWidth = canvas.width;
+    let squareSize = 50;
+    let margin = 15;
+
+    context.fillRect(margin ,canvasHeight-margin-squareSize , squareSize , squareSize);
+
+    context.arc(canvasWidth/2 , canvasHeight/2 , 100 , 0 , 2*Math.PI);
+    context.stroke();
+    context.fillStyle = "#00FF00";
+    context.fill();
+}
+
+var bandera;
+function dibujar() {
+    let canvas = document.getElementById("canvasPaint");
+    let context = canvas.getContext("2d");
+
+    let posX = event.clientX;
+    let posY = event.clientY;
+
+    canvas.onmousedown = function (){bandera = true};
+    canvas.onmouseup = function (){bandera = false};
+
+    console.log(posX , posY);
+
+    if (bandera)
+    {
+        context.fillRect(posX , posY , 5 , 5);
+    }
+}
+
+function limpiarCanvas()
+{
+    let canvas = document.getElementById("canvasPaint");
+    let context = canvas.getContext("2d");
+
+    canvas.width = canvas.width;
+
+}
